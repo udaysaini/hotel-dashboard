@@ -10,6 +10,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Button } from "@/components/ui/button"
+import { Clock, CheckCircle, AlertCircle, MoreVertical } from "lucide-react"
 
 const STATUS_LABELS = {
   pending: 'Pending',
@@ -29,7 +31,34 @@ const PRIORITY_LABELS = {
   low: 'Low Priority'
 }
 
+const PRIORITY_COLORS = {
+  high: 'bg-red-500 text-white',
+  medium: 'bg-amber-500 text-white',
+  low: 'bg-slate-500 text-white'
+}
+
 const PRIORITY_ORDER = ['high', 'medium', 'low']
+
+// Function to check if task is due soon (within 24 hours)
+const isDueSoon = (dueDate) => {
+  if (!dueDate) return false;
+  const now = new Date();
+  const due = new Date(dueDate);
+  const diffHours = (due - now) / (1000 * 60 * 60);
+  return diffHours > 0 && diffHours < 24;
+}
+
+// Function to format date in a readable way
+const formatDate = (dateStr) => {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+}
 
 export default function DashboardPage() {
   const [tasks, setTasks] = useState([])
@@ -97,24 +126,74 @@ export default function DashboardPage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3 }}
                           >
-                            <Card className="bg-zinc-900 border border-zinc-700 rounded-xl shadow-md hover:shadow-xl transition-shadow">
+                            <Card className="bg-zinc-900 border border-zinc-700 rounded-xl shadow-md hover:border-zinc-600 hover:shadow-xl transition-all">
                               <CardContent className="p-5">
-                                <div className="flex flex-col gap-3">
-                                  <h3 className="text-xl font-bold leading-tight text-white">
-                                    {task.title}
-                                  </h3>
-                                  <p className="text-sm text-zinc-400 font-medium">
-                                    Assigned to: <span className="text-white">{task.assigned_to}</span>
-                                  </p>
-                                  <div className="flex flex-wrap gap-2 mt-2">
-                                    <Badge className={STATUS_COLORS[status]}>
-                                      {STATUS_LABELS[status]}
-                                    </Badge>
-                                    {task.priority === 'high' && (
-                                      <Badge className="bg-red-500 text-white animate-pulse">
-                                        High Priority
-                                      </Badge>
+                                <div className="flex flex-col gap-4">
+                                  <div className="flex justify-between items-start">
+                                    <h3 className="text-xl font-bold leading-tight text-white">
+                                      {task.title}
+                                    </h3>
+                                    <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-400 hover:text-white">
+                                      <MoreVertical className="h-4 w-4" />
+                                    </Button>
+                                  </div>
+                                  
+                                  {task.description && (
+                                    <p className="text-zinc-400 text-sm line-clamp-2">
+                                      {task.description}
+                                    </p>
+                                  )}
+                                  
+                                  <div className="flex items-center justify-between">
+                                    <p className="text-sm text-zinc-400 font-medium">
+                                      Assigned to: <span className="text-white">{task.assigned_to}</span>
+                                    </p>
+                                    
+                                    {task.due_date && (
+                                      <div className={`flex items-center gap-1 text-sm ${isDueSoon(task.due_date) ? 'text-red-400' : 'text-zinc-400'}`}>
+                                        <Clock className="h-3 w-3" />
+                                        <span>{formatDate(task.due_date)}</span>
+                                      </div>
                                     )}
+                                  </div>
+                                  
+                                  <div className="flex justify-between items-center mt-1">
+                                    <div className="flex flex-wrap gap-2">
+                                      <Badge className={STATUS_COLORS[status]}>
+                                        {STATUS_LABELS[status]}
+                                      </Badge>
+                                      <Badge className={PRIORITY_COLORS[task.priority]}>
+                                        {PRIORITY_LABELS[task.priority]}
+                                      </Badge>
+                                      {task.location && (
+                                        <Badge variant="outline" className="text-zinc-400 border-zinc-700">
+                                          {task.location}
+                                        </Badge>
+                                      )}
+                                    </div>
+                                    
+                                    <div className="flex gap-2">
+                                      {status !== 'completed' && (
+                                        <Button 
+                                          size="sm" 
+                                          variant="ghost" 
+                                          className="h-8 bg-zinc-800 hover:bg-zinc-700 text-white"
+                                        >
+                                          <CheckCircle className="h-3.5 w-3.5 mr-1" />
+                                          Complete
+                                        </Button>
+                                      )}
+                                      {isDueSoon(task.due_date) && status !== 'completed' && (
+                                        <Button 
+                                          size="sm" 
+                                          variant="ghost" 
+                                          className="h-8 bg-red-900/30 hover:bg-red-900/50 text-red-400"
+                                        >
+                                          <AlertCircle className="h-3.5 w-3.5 mr-1" />
+                                          Urgent
+                                        </Button>
+                                      )}
+                                    </div>
                                   </div>
                                 </div>
                               </CardContent>
