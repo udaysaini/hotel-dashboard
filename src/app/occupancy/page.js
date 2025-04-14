@@ -59,7 +59,7 @@ export default function OccupancyDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader className="pb-2">
-            <CardDescription className="text-zinc-400 flex items-center">
+            <CardDescription className="text-zinc-400 flex items-center font-bold">
               <Users className="h-4 w-4 mr-2" />
               Current Occupancy
             </CardDescription>
@@ -99,7 +99,7 @@ export default function OccupancyDashboard() {
         
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader className="pb-2">
-            <CardDescription className="text-zinc-400 flex items-center">
+            <CardDescription className="text-zinc-400 flex items-center font-bold">
               <BarChart3 className="h-4 w-4 mr-2" />
               7-Day Average
             </CardDescription>
@@ -128,7 +128,7 @@ export default function OccupancyDashboard() {
         
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader className="pb-2">
-            <CardDescription className="text-zinc-400 flex items-center">
+            <CardDescription className="text-zinc-400 flex items-center font-bold">
               <UserCheck className="h-4 w-4 mr-2" />
               Today's Check-ins
             </CardDescription>
@@ -158,7 +158,7 @@ export default function OccupancyDashboard() {
         
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader className="pb-2">
-            <CardDescription className="text-zinc-400 flex items-center">
+            <CardDescription className="text-zinc-400 flex items-center font-bold">
               <CalendarDays className="h-4 w-4 mr-2" />
               Today's Check-outs
             </CardDescription>
@@ -189,7 +189,7 @@ export default function OccupancyDashboard() {
       
       {/* Occupancy Chart and Guests */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="bg-zinc-900 border-zinc-800 lg:col-span-2">
+        <Card className="bg-zinc-900 border-zinc-800 lg:col-span-2 text-white">
           <CardHeader>
             <CardTitle>Occupancy Trend</CardTitle>
           </CardHeader>
@@ -215,7 +215,7 @@ export default function OccupancyDashboard() {
           </CardContent>
         </Card>
         
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-zinc-900 border-zinc-800 text-white">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Current Guests</CardTitle>
             <Badge className="bg-emerald-500/20 text-emerald-500">

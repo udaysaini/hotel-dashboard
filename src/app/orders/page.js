@@ -74,11 +74,11 @@ export default function OrdersDashboard() {
       
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-zinc-900 border-zinc-800 text-white">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-zinc-400 mb-1 text-sm">Total Orders</p>
+                <p className="text-zinc-400 mb-1 text-md font-bold">Total Orders</p>
                 <h2 className="text-3xl font-bold">{orders.length}</h2>
               </div>
               <div className="p-3 bg-indigo-500/20 rounded-full">
@@ -88,11 +88,11 @@ export default function OrdersDashboard() {
           </CardContent>
         </Card>
         
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-zinc-900 border-zinc-800 text-white">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-zinc-400 mb-1 text-sm">Pending</p>
+                <p className="text-zinc-400 mb-1 text-md font-bold">Pending</p>
                 <h2 className="text-3xl font-bold">{pendingCount}</h2>
               </div>
               <div className="p-3 bg-yellow-500/20 rounded-full">
@@ -102,11 +102,11 @@ export default function OrdersDashboard() {
           </CardContent>
         </Card>
         
-        <Card className="bg-zinc-900 border-zinc-800">
+        <Card className="bg-zinc-900 border-zinc-800 text-white">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-zinc-400 mb-1 text-sm">Completed</p>
+                <p className="text-zinc-400 mb-1 text-md font-bold">Completed</p>
                 <h2 className="text-3xl font-bold">{completedCount}</h2>
               </div>
               <div className="p-3 bg-green-500/20 rounded-full">
@@ -161,7 +161,7 @@ export default function OrdersDashboard() {
       </div>
       
       {/* Orders Table */}
-      <Card className="bg-zinc-900 border-zinc-800">
+      <Card className="bg-zinc-900 border-zinc-800 text-white">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
