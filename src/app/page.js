@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { motion } from 'motion/react'
+import { motion } from 'framer-motion'
 import {
   Accordion,
   AccordionContent,
@@ -60,7 +60,7 @@ const formatDate = (dateStr) => {
   });
 }
 
-export default function DashboardPage() {
+export default function ClassicDashboardPage() {
   const [tasks, setTasks] = useState([])
 
   useEffect(() => {
@@ -93,9 +93,9 @@ export default function DashboardPage() {
   }, {})
 
   return (
-    <main className="min-h-screen bg-zinc-950 text-white px-8 py-10 font-sans">
-      <h1 className="text-4xl font-extrabold text-white mb-10 tracking-tight">
-        Hotel Staff Task Dashboard
+    <div className="container mx-auto px-8 py-10">
+      <h1 className="text-3xl font-extrabold text-white mb-8 tracking-tight">
+        Classic Dashboard View
       </h1>
 
       <section className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -209,6 +209,6 @@ export default function DashboardPage() {
           </div>
         ))}
       </section>
-    </main>
+    </div>
   )
 }

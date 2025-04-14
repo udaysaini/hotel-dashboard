@@ -1,0 +1,97 @@
+import { NextResponse } from 'next/server';
+
+export async function GET() {
+  // Simulating database data based on your schema
+  const orders = [
+    {
+      order_id: 1,
+      guest_id: 1,
+      guest_name: 'Michael Johnson',
+      room_number: '101',
+      employee_id: 6,
+      employee_name: 'Diana Wilson',
+      order_details: 'Room Service: Pizza and Salad',
+      status: 'Completed',
+      created_at: '2023-10-14T18:30:00',
+    },
+    {
+      order_id: 2,
+      guest_id: 2,
+      guest_name: 'Sarah Williams',
+      room_number: '102',
+      employee_id: 6,
+      employee_name: 'Diana Wilson',
+      order_details: 'Room Service: Pasta and Wine',
+      status: 'Pending',
+      created_at: '2023-10-14T19:15:00',
+    },
+    {
+      order_id: 3,
+      guest_id: 3,
+      guest_name: 'David Jones',
+      room_number: '103',
+      employee_id: 7,
+      employee_name: 'Ethan Martinez',
+      order_details: 'Bar Order: 2 Cocktails',
+      status: 'Completed',
+      created_at: '2023-10-14T20:00:00',
+    },
+    {
+      order_id: 4,
+      guest_id: 4,
+      guest_name: 'Emily Brown',
+      room_number: '104',
+      employee_id: 7,
+      employee_name: 'Ethan Martinez',
+      order_details: 'Bar Order: 1 Beer',
+      status: 'Pending',
+      created_at: '2023-10-14T20:30:00',
+    },
+    {
+      order_id: 5,
+      guest_id: 5,
+      guest_name: 'Daniel Garcia',
+      room_number: '105',
+      employee_id: 6,
+      employee_name: 'Diana Wilson',
+      order_details: 'Room Service: Breakfast',
+      status: 'Completed',
+      created_at: '2023-10-15T08:00:00',
+    },
+    {
+      order_id: 6,
+      guest_id: 6,
+      guest_name: 'Sophia Martinez',
+      room_number: '106',
+      employee_id: 6,
+      employee_name: 'Diana Wilson',
+      order_details: 'Room Service: Sandwich and Juice',
+      status: 'Pending',
+      created_at: '2023-10-15T12:15:00',
+    },
+    {
+      order_id: 7,
+      guest_id: 7,
+      guest_name: 'James Rodriguez',
+      room_number: '107',
+      employee_id: 7,
+      employee_name: 'Ethan Martinez',
+      order_details: 'Bar Order: 3 Soft Drinks',
+      status: 'Completed',
+      created_at: '2023-10-15T15:45:00',
+    },
+    {
+      order_id: 8,
+      guest_id: 8,
+      guest_name: 'Olivia Hernandez',
+      room_number: '108',
+      employee_id: 7,
+      employee_name: 'Ethan Martinez',
+      order_details: 'Bar Order: 1 Wine',
+      status: 'Pending',
+      created_at: '2023-10-15T17:30:00',
+    }
+  ];
+
+  return NextResponse.json(orders);
+}
