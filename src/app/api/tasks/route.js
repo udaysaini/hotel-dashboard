@@ -12,7 +12,7 @@ export async function GET() {
       status: 'pending',
       priority: 'medium',
       location: 'Room 101',
-      due_date: '2023-10-15T18:00:00',
+      due_date: '2025-10-15T18:00:00',
       department: 'Housekeeping'
     },
     {
@@ -120,9 +120,45 @@ export async function GET() {
       status: 'in_progress',
       priority: 'medium',
       location: 'Security Office',
-      due_date: '2023-10-14T16:00:00',
+      due_date: '2025-04-14T16:00:00',
       department: 'Security'
-    }
+    },
+    {
+      id: 11,
+      title: 'Employee Training',
+      description: 'Help new batch of Employees with facility tour and training',
+      assigned_to: 'George Hernandez',
+      assigned_to_id: 9,
+      status: 'in_progress',
+      priority: 'medium',
+      location: 'Training Room',
+      due_date: '2025-04-14T16:00:00',
+      department: 'Security'
+    },
+    {
+      id: 12,
+      title: 'Finalize Event Schedule',
+      description: 'Confirm timings and details for upcoming events',
+      assigned_to: 'Jane Smith',
+      assigned_to_id: 2,
+      status: 'pending',
+      priority: 'high',
+      location: 'Event Hall',
+      due_date: '2025-04-14T16:00:00',
+      department: 'Events'
+    },
+    {
+      id: 13,
+      title: 'Finalize Event Catering',
+      description: 'Confirm catering details for upcoming events',
+      assigned_to: 'Jane Smith',
+      assigned_to_id: 2,
+      status: 'pending',
+      priority: 'high',
+      location: 'Kitchen',
+      due_date: '2025-04-14T16:00:00',
+      department: 'Events'
+    },
   ];
 
   return NextResponse.json(tasks);

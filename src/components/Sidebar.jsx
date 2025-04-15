@@ -10,11 +10,13 @@ import {
   Users, 
   BarChart4,
   Coffee,
+  CheckSquare,
 } from "lucide-react"
 import { useEffect, useState } from 'react'
 
 const navItems = [
   { name: 'Tasks', path: '/', icon: ClipboardList },
+  { name: 'Task Hub', path: '/tasks', icon: CheckSquare },
   { name: 'Shifts', path: '/shifts', icon: Calendar },
   { name: 'Occupancy', path: '/occupancy', icon: Users },
   { name: 'Guest Orders', path: '/orders', icon: Coffee },
