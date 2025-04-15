@@ -205,10 +205,10 @@ export default function AnalyticsTasksPage() {
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-medium">Department Breakdown</CardTitle>
+              <CardTitle className="text-lg font-medium text-white">Department Breakdown</CardTitle>
               <Building2 className="h-5 w-5 text-zinc-500" />
             </div>
-            <CardDescription>Task distribution across departments</CardDescription>
+            <CardDescription className="text-zinc-400">Task distribution across departments</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -249,10 +249,10 @@ export default function AnalyticsTasksPage() {
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-medium">Priority Distribution</CardTitle>
+              <CardTitle className="text-lg font-medium text-white">Priority Distribution</CardTitle>
               <Activity className="h-5 w-5 text-zinc-500" />
             </div>
-            <CardDescription>Task breakdown by priority level</CardDescription>
+            <CardDescription className="text-zinc-400">Task breakdown by priority level</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex gap-4 mb-4">
@@ -293,10 +293,10 @@ export default function AnalyticsTasksPage() {
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-medium">Status Overview</CardTitle>
+              <CardTitle className="text-lg font-medium text-white">Status Overview</CardTitle>
               <PieChart className="h-5 w-5 text-zinc-500" />
             </div>
-            <CardDescription>Current state of all tasks</CardDescription>
+            <CardDescription className="text-zinc-400">Current state of all tasks</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -333,10 +333,10 @@ export default function AnalyticsTasksPage() {
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="text-lg font-medium">Employee Performance</CardTitle>
+              <CardTitle className="text-lg font-medium text-white">Employee Performance</CardTitle>
               <Users className="h-5 w-5 text-zinc-500" />
             </div>
-            <CardDescription>Task completion rate by employee</CardDescription>
+            <CardDescription className="text-zinc-400">Task completion rate by employee</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">

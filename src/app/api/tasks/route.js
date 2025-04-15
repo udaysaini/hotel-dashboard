@@ -1,6 +1,35 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
+  // Get date references for last week, today, and next week
+  const today = new Date();
+  
+  // Format a date to ISO string with time
+  const formatDate = (date) => {
+    return date.toISOString().split('.')[0]; // Remove milliseconds
+  };
+  
+  // Helper to get a date with an offset from today
+  const getOffsetDate = (dayOffset, hourOffset = 0) => {
+    const date = new Date();
+    date.setDate(date.getDate() + dayOffset);
+    date.setHours(date.getHours() + hourOffset);
+    return formatDate(date);
+  };
+
+  // Get dates for various offsets
+  const yesterday = getOffsetDate(-1);
+  const todayDate = getOffsetDate(0, 3); // 3 hours from now
+  const tomorrow = getOffsetDate(1);
+  const twoDaysAgo = getOffsetDate(-2);
+  const threeDaysAgo = getOffsetDate(-3);
+  const fourDaysAgo = getOffsetDate(-4);
+  const fiveDaysAgo = getOffsetDate(-5);
+  const threeDaysFromNow = getOffsetDate(3);
+  const fourDaysFromNow = getOffsetDate(4);
+  const fiveDaysFromNow = getOffsetDate(5);
+  const sixDaysFromNow = getOffsetDate(6);
+
   // Simulating database data
   const tasks = [
     {
@@ -12,7 +41,7 @@ export async function GET() {
       status: 'pending',
       priority: 'medium',
       location: 'Room 101',
-      due_date: '2025-10-15T18:00:00',
+      due_date: todayDate,
       department: 'Housekeeping'
     },
     {
@@ -24,7 +53,7 @@ export async function GET() {
       status: 'in_progress',
       priority: 'low',
       location: 'Room 202',
-      due_date: '2023-10-16T15:00:00',
+      due_date: tomorrow,
       department: 'Maintenance'
     },
     {
@@ -36,7 +65,7 @@ export async function GET() {
       status: 'completed',
       priority: 'medium',
       location: 'Kitchen',
-      due_date: '2023-10-14T17:00:00',
+      due_date: yesterday,
       department: 'Kitchen'
     },
     {
@@ -48,7 +77,7 @@ export async function GET() {
       status: 'pending',
       priority: 'high',
       location: 'Hall A',
-      due_date: '2023-10-20T09:00:00',
+      due_date: threeDaysFromNow,
       department: 'Events'
     },
     {
@@ -60,7 +89,7 @@ export async function GET() {
       status: 'in_progress',
       priority: 'medium',
       location: 'Storage Room',
-      due_date: '2023-10-18T12:00:00',
+      due_date: tomorrow,
       department: 'Kitchen'
     },
     {
@@ -72,7 +101,7 @@ export async function GET() {
       status: 'pending',
       priority: 'high',
       location: 'Lobby',
-      due_date: '2023-10-14T15:00:00',
+      due_date: yesterday, // Already overdue
       department: 'Front Desk'
     },
     {
@@ -84,7 +113,7 @@ export async function GET() {
       status: 'in_progress',
       priority: 'medium',
       location: 'Bar',
-      due_date: '2023-10-14T20:00:00',
+      due_date: todayDate,
       department: 'Dining'
     },
     {
@@ -96,7 +125,7 @@ export async function GET() {
       status: 'completed',
       priority: 'low',
       location: 'All Areas',
-      due_date: '2023-10-22T10:00:00',
+      due_date: fourDaysFromNow,
       department: 'Security'
     },
     {
@@ -108,7 +137,7 @@ export async function GET() {
       status: 'pending',
       priority: 'medium',
       location: 'Front Desk',
-      due_date: '2023-10-15T17:00:00',
+      due_date: todayDate,
       department: 'Front Desk'
     },
     {
@@ -120,7 +149,7 @@ export async function GET() {
       status: 'in_progress',
       priority: 'medium',
       location: 'Security Office',
-      due_date: '2025-04-14T16:00:00',
+      due_date: fiveDaysFromNow,
       department: 'Security'
     },
     {
@@ -132,7 +161,7 @@ export async function GET() {
       status: 'in_progress',
       priority: 'medium',
       location: 'Training Room',
-      due_date: '2025-04-14T16:00:00',
+      due_date: sixDaysFromNow,
       department: 'Security'
     },
     {
@@ -144,7 +173,7 @@ export async function GET() {
       status: 'pending',
       priority: 'high',
       location: 'Event Hall',
-      due_date: '2025-04-14T16:00:00',
+      due_date: twoDaysAgo, // Already overdue
       department: 'Events'
     },
     {
@@ -156,7 +185,7 @@ export async function GET() {
       status: 'pending',
       priority: 'high',
       location: 'Kitchen',
-      due_date: '2025-04-14T16:00:00',
+      due_date: threeDaysAgo, // Already overdue
       department: 'Events'
     },
   ];

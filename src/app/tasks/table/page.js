@@ -204,7 +204,7 @@ export default function TaskTableView() {
                           <div className={`p-1.5 rounded-md bg-zinc-800 ${colorClass}`}>
                             <Icon className="h-3.5 w-3.5" />
                           </div>
-                          <span className="text-sm whitespace-nowrap">{task.department}</span>
+                          <span className="text-sm text-zinc-300 whitespace-nowrap">{task.department}</span>
                         </div>
                       )}
                     </TableCell>
@@ -214,7 +214,7 @@ export default function TaskTableView() {
                         <div className="w-6 h-6 rounded-full bg-zinc-800 flex items-center justify-center text-white text-xs">
                           {task.assigned_to?.charAt(0) || '?'}
                         </div>
-                        <span className="text-sm">{task.assigned_to}</span>
+                        <span className="text-sm text-zinc-300">{task.assigned_to}</span>
                       </div>
                     </TableCell>
                     
