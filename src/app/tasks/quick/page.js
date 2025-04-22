@@ -243,7 +243,7 @@ export default function QuickTaskView() {
           <div className="p-1 rounded bg-blue-900/30 text-blue-500">
             <Calendar className="h-4 w-4" />
           </div>
-          <h3 className="font-bold text-white">Today's Quick Timeline</h3>
+          <h3 className="font-bold text-white">Today&apos;s Quick Timeline</h3>
         </div>
         
         <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-6 gap-2">

@@ -175,7 +175,7 @@ export default function AnalyticsTasksPage() {
               </div>
             </div>
             <div className="flex justify-between items-center mt-4 text-xs text-zinc-500">
-              <span>Today's deadline</span>
+              <span>Today&apos;s deadline</span>
               <span>{dueTodayTasks} remaining</span>
             </div>
           </CardContent>
