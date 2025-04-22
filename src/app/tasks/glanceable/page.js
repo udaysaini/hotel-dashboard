@@ -158,7 +158,7 @@ export default function GlanceableTasksPage() {
           <div className="p-1.5 rounded-md bg-indigo-900/40 text-indigo-400 mr-2">
             <Clock className="h-5 w-5" />
           </div>
-          <h2 className="text-xl font-bold text-white">Today's Timeline</h2>
+          <h2 className="text-xl font-bold text-white">Today&apos;s Timeline</h2>
         </div>
         
         <div className="relative">

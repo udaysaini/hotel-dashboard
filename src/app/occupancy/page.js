@@ -130,7 +130,7 @@ export default function OccupancyDashboard() {
           <CardHeader className="pb-2">
             <CardDescription className="text-zinc-400 flex items-center font-bold">
               <UserCheck className="h-4 w-4 mr-2" />
-              Today's Check-ins
+              Today&apos;s Check-ins
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -160,7 +160,7 @@ export default function OccupancyDashboard() {
           <CardHeader className="pb-2">
             <CardDescription className="text-zinc-400 flex items-center font-bold">
               <CalendarDays className="h-4 w-4 mr-2" />
-              Today's Check-outs
+              Today&apos;s Check-outs
             </CardDescription>
           </CardHeader>
           <CardContent>
