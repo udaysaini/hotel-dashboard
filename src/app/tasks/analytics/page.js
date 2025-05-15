@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useTaskContext } from '@/contexts/TaskContext'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { 
@@ -17,40 +17,31 @@ import {
 } from "lucide-react"
 import { getDepartmentIcon } from '../icons'
 import { STATUS_LABELS, STATUS_COLORS } from '../../utils'
+import SearchQueryIndicator from '@/components/tasks/SearchQueryIndicator'
 
 export default function AnalyticsTasksPage() {
-  const [tasks, setTasks] = useState([])
-  const [loading, setLoading] = useState(true)
+  // Use the shared task context
+  const { tasks, filteredTasks, isLoading } = useTaskContext()
   
-  useEffect(() => {
-    fetch('/api/tasks')
-      .then(res => res.json())
-      .then(data => {
-        setTasks(data)
-        setLoading(false)
-      })
-      .catch(err => {
-        console.error('Error fetching tasks:', err)
-        setLoading(false)
-      })
-  }, [])
-
+  // Determine which tasks array to use
+  const currentTasks = filteredTasks?.length > 0 ? filteredTasks : tasks;
+  
   // Calculate task statistics
-  const totalTasks = tasks.length
-  const pendingTasks = tasks.filter(task => task.status === 'pending').length
-  const inProgressTasks = tasks.filter(task => task.status === 'in_progress').length
-  const completedTasks = tasks.filter(task => task.status === 'completed').length
+  const totalTasks = currentTasks.length
+  const pendingTasks = currentTasks.filter(task => task.status === 'pending').length
+  const inProgressTasks = currentTasks.filter(task => task.status === 'in_progress').length
+  const completedTasks = currentTasks.filter(task => task.status === 'completed').length
   
   const completionRate = totalTasks ? Math.round((completedTasks / totalTasks) * 100) : 0
   const pendingRate = totalTasks ? Math.round((pendingTasks / totalTasks) * 100) : 0
   
   // Tasks by priority
-  const highPriorityTasks = tasks.filter(task => task.priority === 'high').length
-  const mediumPriorityTasks = tasks.filter(task => task.priority === 'medium').length
-  const lowPriorityTasks = tasks.filter(task => task.priority === 'low').length
+  const highPriorityTasks = currentTasks.filter(task => task.priority === 'high').length
+  const mediumPriorityTasks = currentTasks.filter(task => task.priority === 'medium').length
+  const lowPriorityTasks = currentTasks.filter(task => task.priority === 'low').length
   
   // Tasks by department
-  const departmentCounts = tasks.reduce((acc, task) => {
+  const departmentCounts = currentTasks.reduce((acc, task) => {
     const dept = task.department || 'Uncategorized';
     acc[dept] = (acc[dept] || 0) + 1;
     return acc;
@@ -66,19 +57,19 @@ export default function AnalyticsTasksPage() {
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
   
-  const overdueTasks = tasks.filter(task => {
+  const overdueTasks = currentTasks.filter(task => {
     if (!task.due_date || task.status === 'completed') return false;
     return new Date(task.due_date) < new Date();
   }).length;
   
-  const dueTodayTasks = tasks.filter(task => {
+  const dueTodayTasks = currentTasks.filter(task => {
     if (!task.due_date) return false;
     const dueDate = new Date(task.due_date).setHours(0, 0, 0, 0);
     return dueDate === today && task.status !== 'completed';
   }).length;
 
   // Calculate assignments to employees
-  const assignmentCounts = tasks.reduce((acc, task) => {
+  const assignmentCounts = currentTasks.reduce((acc, task) => {
     const assignee = task.assigned_to || 'Unassigned';
     acc[assignee] = (acc[assignee] || 0) + 1;
     return acc;
@@ -91,7 +82,7 @@ export default function AnalyticsTasksPage() {
   
   // Calculate completion efficiency (completed tasks vs. assigned)
   const employeeEfficiency = {};
-  tasks.forEach(task => {
+  currentTasks.forEach(task => {
     const assignee = task.assigned_to || 'Unassigned';
     if (!employeeEfficiency[assignee]) {
       employeeEfficiency[assignee] = { completed: 0, total: 0 };
@@ -114,12 +105,19 @@ export default function AnalyticsTasksPage() {
     .sort((a, b) => b.rate - a.rate)
     .slice(0, 5);
 
-  if (loading) {
+  if (isLoading) {
     return <div className="text-center py-12 text-zinc-400">Loading task analytics...</div>;
   }
 
   return (
     <div className="space-y-6">
+      <div className="flex flex-wrap justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold text-white">Tasks Analytics</h1>
+        
+        {/* Use the shared SearchQueryIndicator component */}
+        <SearchQueryIndicator />
+      </div>
+      
       {/* Key Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="bg-zinc-900 border-zinc-800">
@@ -134,10 +132,36 @@ export default function AnalyticsTasksPage() {
               </div>
             </div>
             <div className="flex items-center justify-between mt-4">
-              <div className="grid grid-cols-3 w-full gap-1">
-                <div className="h-2 rounded-l-full bg-yellow-500" style={{ width: `${pendingRate}%` }}></div>
-                <div className="h-2 bg-blue-500"></div>
-                <div className="h-2 rounded-r-full bg-green-500" style={{ width: `${completionRate}%` }}></div>
+              <div className="w-full h-2 bg-zinc-800 rounded-full overflow-hidden flex">
+                <div 
+                  className="h-full bg-yellow-500" 
+                  style={{ width: `${pendingRate}%` }}
+                  title={`Pending: ${pendingTasks} tasks (${pendingRate}%)`}
+                ></div>
+                <div 
+                  className="h-full bg-blue-500" 
+                  style={{ width: `${inProgressTasks / totalTasks * 100}%` }}
+                  title={`In Progress: ${inProgressTasks} tasks (${Math.round(inProgressTasks / totalTasks * 100)}%)`}
+                ></div>
+                <div 
+                  className="h-full bg-green-500" 
+                  style={{ width: `${completionRate}%` }}
+                  title={`Completed: ${completedTasks} tasks (${completionRate}%)`}
+                ></div>
+              </div>
+            </div>
+            <div className="flex justify-between items-center mt-2 text-xs">
+              <div className="flex items-center">
+                <span className="w-2 h-2 rounded-full bg-yellow-500 mr-1"></span>
+                <span className="text-zinc-400">Pending</span>
+              </div>
+              <div className="flex items-center">
+                <span className="w-2 h-2 rounded-full bg-blue-500 mr-1"></span>
+                <span className="text-zinc-400">In Progress</span>
+              </div>
+              <div className="flex items-center">
+                <span className="w-2 h-2 rounded-full bg-green-500 mr-1"></span>
+                <span className="text-zinc-400">Completed</span>
               </div>
             </div>
           </CardContent>

@@ -52,7 +52,7 @@ export default function TasksLayout({ children }) {
     <div className="container mx-auto px-4 py-8">
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">Task Hub</h1>
+          <h1 className="text-3xl font-bold text-white mb-2">FourSight for Four Seasons</h1>
           <p className="text-zinc-400">Multiple views to help you manage tasks efficiently</p>
         </div>
 

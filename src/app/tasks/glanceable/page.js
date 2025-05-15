@@ -14,39 +14,78 @@ import {
 } from 'lucide-react'
 import { getDepartmentIcon } from '../icons'
 import { STATUS_COLORS, PRIORITY_COLORS, isDueSoon, formatDate } from '../../utils'
+import { useTaskContext } from '@/contexts/TaskContext'
+import SearchQueryIndicator from '@/components/tasks/SearchQueryIndicator'
 
 export default function GlanceableTasksPage() {
-  const [tasks, setTasks] = useState([])
-  const [loading, setLoading] = useState(true)
+  // Use the shared task context
+  const { tasks, filteredTasks, isLoading } = useTaskContext()
   
-  useEffect(() => {
-    fetch('/api/tasks')
-      .then(res => res.json())
-      .then(data => {
-        setTasks(data)
-        setLoading(false)
-      })
-  }, [])
+  // Determine which tasks array to use
+  const currentTasks = filteredTasks?.length > 0 ? filteredTasks : tasks;
   
   // Get tasks due today
   const today = new Date().setHours(0, 0, 0, 0);
   
-  const urgentTasks = tasks.filter(task => 
-    (isDueSoon(task.due_date) || task.priority === 'high') && 
-    task.status !== 'completed'
-  );
+  // Check if a task is overdue - simplified and more robust implementation
+  const isOverdue = (dueDate) => {
+    if (!dueDate) return false;
+    return new Date(dueDate) < new Date();
+  };
   
-  const dueTodayTasks = tasks.filter(task => {
+  // Add debugging console log to see tasks and their overdue status
+  console.log('Tasks with overdue status:', currentTasks.map(task => ({
+    id: task.id,
+    title: task.title,
+    due_date: task.due_date,
+    isOverdue: isOverdue(task.due_date),
+    isDueSoon: isDueSoon(task.due_date),
+    status: task.status
+  })));
+  
+  const urgentTasks = currentTasks.filter(task => {
+    // Only include non-completed tasks
+    if (task.status === 'completed') return false;
+    
+    // Include if high priority, due soon OR overdue
+    return task.priority === 'high' || isDueSoon(task.due_date) || isOverdue(task.due_date);
+  }).sort((a, b) => {
+    // Sort by overdue first, then by due date
+    const aOverdue = isOverdue(a.due_date);
+    const bOverdue = isOverdue(b.due_date);
+    
+    // If one is overdue and the other isn't, prioritize the overdue task
+    if (aOverdue && !bOverdue) return -1;
+    if (!aOverdue && bOverdue) return 1;
+    
+    // If both have the same overdue status, sort by due date
+    if (!a.due_date) return 1;
+    if (!b.due_date) return -1;
+    return new Date(a.due_date) - new Date(b.due_date);
+  });
+  
+  // Also log the filtered urgent tasks to confirm
+  console.log('Urgent tasks:', urgentTasks.map(task => ({
+    id: task.id,
+    title: task.title,
+    due_date: task.due_date,
+    isOverdue: isOverdue(task.due_date)
+  })));
+
+  const dueTodayTasks = currentTasks.filter(task => {
     if (!task.due_date || task.status === 'completed') return false;
     const dueDate = new Date(task.due_date).setHours(0, 0, 0, 0);
     return dueDate === today;
+  }).sort((a, b) => {
+    // Sort by due date (most recent first)
+    return new Date(a.due_date) - new Date(b.due_date);
   });
   
   // Get in-progress tasks
-  const inProgressTasks = tasks.filter(task => task.status === 'in_progress');
+  const inProgressTasks = currentTasks.filter(task => task.status === 'in_progress');
   
   // Group tasks by assigned employee
-  const groupedByEmployee = tasks.reduce((acc, task) => {
+  const groupedByEmployee = currentTasks.reduce((acc, task) => {
     if (task.status === 'completed') return acc;
     
     const assignee = task.assigned_to || 'Unassigned';
@@ -62,14 +101,13 @@ export default function GlanceableTasksPage() {
     .sort((a, b) => b[1].length - a[1].length)
     .slice(0, 5);
 
-  if (loading) {
+  if (isLoading) {
     return <div className="text-center py-12 text-zinc-400">Loading tasks...</div>;
   }
   
   return (
     <div className="space-y-10">
-      {/* Urgent Tasks - Animated Hot Zone */}
-      <div>
+      <div className="flex flex-wrap justify-between items-center">
         <div className="flex items-center mb-4">
           <div className="p-1.5 rounded-md bg-red-900/40 text-red-400 mr-2">
             <Flame className="h-5 w-5" />
@@ -77,6 +115,14 @@ export default function GlanceableTasksPage() {
           <h2 className="text-xl font-bold text-white">Urgent Attention Needed</h2>
         </div>
         
+        {/* Use the shared SearchQueryIndicator component */}
+        <div className="mb-4">
+          <SearchQueryIndicator />
+        </div>
+      </div>
+      
+      {/* Urgent Tasks - Animated Hot Zone */}
+      <div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {urgentTasks.length > 0 ? (
             urgentTasks.map((task) => (
@@ -104,15 +150,20 @@ export default function GlanceableTasksPage() {
                 
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <h3 className="font-bold text-white">{task.title}</h3>
-                    <div className="text-sm text-zinc-400 mt-1">
+                    <h3 className="font-bold text-white" title={task.title}>{task.title}</h3>
+                    <div className="text-sm text-zinc-400 mt-1" title={task.description}>
                       {task.description?.substring(0, 60)}
                       {task.description?.length > 60 ? '...' : ''}
                     </div>
                   </div>
-                  {task.priority === 'high' && (
-                    <Badge className="bg-red-500 text-white">High Priority</Badge>
-                  )}
+                  <div className="flex gap-2">
+                    {isOverdue(task.due_date) && (
+                      <Badge className="bg-red-700 text-white">Overdue</Badge>
+                    )}
+                    {task.priority === 'high' && (
+                      <Badge className="bg-red-500 text-white">High Priority</Badge>
+                    )}
+                  </div>
                 </div>
                 
                 {/* Task metadata and action buttons */}
@@ -127,9 +178,9 @@ export default function GlanceableTasksPage() {
                       );
                     })()}
                     {task.due_date && (
-                      <div className="flex items-center gap-1 text-red-400">
+                      <div className={`flex items-center gap-1 ${isOverdue(task.due_date) ? 'text-red-400' : isDueSoon(task.due_date) ? 'text-amber-400' : 'text-zinc-400'}`}>
                         <Clock className="h-3 w-3" />
-                        <span className="text-xs">{formatDate(task.due_date)}</span>
+                        <span className="text-xs">{formatDate(task.due_date)}{isOverdue(task.due_date) ? ' (Overdue)' : ''}</span>
                       </div>
                     )}
                   </div>
@@ -188,7 +239,7 @@ export default function GlanceableTasksPage() {
                         <h3 className="font-semibold text-white">{task.title}</h3>
                         <div className="flex gap-2">
                           <Badge className={PRIORITY_COLORS[task.priority]}>
-                            {task.priority}
+                            {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
                           </Badge>
                           <Badge className={STATUS_COLORS[task.status]}>
                             {task.status === 'pending' ? 'To Do' : 'In Progress'}

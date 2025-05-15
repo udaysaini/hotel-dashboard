@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
 import { getDepartmentIcon } from '../icons'
@@ -11,43 +11,40 @@ import {
   Clock, 
   Calendar, 
   User,
-  ArrowRight
+  ArrowRight,
+  Loader2
 } from 'lucide-react'
 import { isOverdue, isDueSoon } from '../../utils'
+import { useTaskContext } from '@/contexts/TaskContext'
+import SearchQueryIndicator from '@/components/tasks/SearchQueryIndicator'
 
 export default function QuickTaskView() {
-  const [tasks, setTasks] = useState([])
-  const [loading, setLoading] = useState(true)
+  // Use the shared task context
+  const { tasks, filteredTasks, isLoading } = useTaskContext()
   
-  useEffect(() => {
-    fetch('/api/tasks')
-      .then(res => res.json())
-      .then(data => {
-        setTasks(data)
-        setLoading(false)
-      })
-  }, [])
+  // Determine which tasks array to use
+  const currentTasks = filteredTasks?.length > 0 ? filteredTasks : tasks;
   
   // Calculate today's date for highlighting today's tasks
   const today = new Date().setHours(0, 0, 0, 0)
   
   // Critical metrics
-  const totalPending = tasks.filter(task => task.status === 'pending').length
-  const totalInProgress = tasks.filter(task => task.status === 'in_progress').length
-  const totalCompleted = tasks.filter(task => task.status === 'completed').length
+  const totalPending = currentTasks.filter(task => task.status === 'pending').length
+  const totalInProgress = currentTasks.filter(task => task.status === 'in_progress').length
+  const totalCompleted = currentTasks.filter(task => task.status === 'completed').length
   
-  const overdueCount = tasks.filter(task => 
+  const overdueCount = currentTasks.filter(task => 
     isOverdue(task.due_date) && task.status !== 'completed'
   ).length
   
-  const dueTodayCount = tasks.filter(task => {
+  const dueTodayCount = currentTasks.filter(task => {
     if (!task.due_date || task.status === 'completed') return false
     const dueDate = new Date(task.due_date).setHours(0, 0, 0, 0)
     return dueDate === today
   }).length
   
   // Top priority tasks (high priority or overdue)
-  const urgentTasks = tasks
+  const urgentTasks = currentTasks
     .filter(task => 
       (task.priority === 'high' || isOverdue(task.due_date)) && 
       task.status !== 'completed'
@@ -55,7 +52,7 @@ export default function QuickTaskView() {
     .slice(0, 3) // Only show top 3
   
   // Group tasks by department for visibility
-  const departmentTaskCounts = tasks.reduce((acc, task) => {
+  const departmentTaskCounts = currentTasks.reduce((acc, task) => {
     if (task.status === 'completed') return acc
     
     const dept = task.department || 'Other'
@@ -69,17 +66,22 @@ export default function QuickTaskView() {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 5)
   
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center h-[50vh]">
-        <div className="text-zinc-500 animate-pulse">Loading dashboard...</div>
+        <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
       </div>
     )
   }
   
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-white">Quick View Dashboard</h2>
+      <div className="flex flex-wrap justify-between items-center">
+        <h2 className="text-2xl font-bold text-white">Quick View Dashboard</h2>
+        
+        {/* Use the shared SearchQueryIndicator component */}
+        <SearchQueryIndicator />
+      </div>
       
       {/* Main Stats Grid */}
       <div className="grid grid-cols-4 gap-3">
@@ -163,9 +165,9 @@ export default function QuickTaskView() {
                         <Icon className="h-3.5 w-3.5" />
                       </div>
                       <div className="flex-1">
-                        <div className="font-medium text-white">{task.title}</div>
+                        <div className="font-medium text-white" title={task.title}>{task.title}</div>
                         <div className="flex items-center gap-3 mt-1 text-xs">
-                          <div className="flex items-center text-zinc-400">
+                          <div className="flex items-center text-zinc-400" title={task.assigned_to}>
                             <User className="h-3 w-3 mr-1" /> 
                             {task.assigned_to}
                           </div>
