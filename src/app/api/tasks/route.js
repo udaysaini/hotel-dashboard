@@ -249,110 +249,110 @@ function getMockTasks() {
     },
 
     // GUEST JOURNEY 2: Michael & Sophia Rodriguez - Anniversary Couple
-    {
-      id: 9,
-      title: 'Anniversary Package: Rodriguez',
-      description: 'Set up anniversary package for Rodriguez couple: champagne, roses, and personalized welcome card.',
-      assigned_to: 'Jane Smith',
-      assigned_to_id: 2,
-      status: 'completed',
-      priority: 'high',
-      location: 'Front Desk',
-      due_date: threeDaysAgo,
-      department: 'Front Desk',
-      guest_id: 'G002'
-    },
-    {
-      id: 10,
-      title: 'Room Decoration: Rodriguez',
-      description: 'Decorate Room 302 with rose petals, set up anniversary banner and decorative lighting.',
-      assigned_to: 'Alice Johnson',
-      assigned_to_id: 3,
-      status: 'completed',
-      priority: 'medium',
-      location: 'Room 302',
-      due_date: threeDaysAgo,
-      department: 'Housekeeping',
-      guest_id: 'G002'
-    },
-    {
-      id: 11,
-      title: 'Couples Spa Appointment: Rodriguez',
-      description: 'Confirm couples massage for Rodriguez anniversary package at 3pm in the spa.',
-      assigned_to: 'Fiona Wilson',
-      assigned_to_id: 8,
-      status: 'completed',
-      priority: 'medium',
-      location: 'Spa',
-      due_date: twoDaysAgo,
-      department: 'Spa',
-      guest_id: 'G002'
-    },
-    {
-      id: 12,
-      title: 'Special Dinner: Rodriguez',
-      description: 'Set up private candlelight dinner on ocean terrace. Anniversary menu with wine pairing.',
-      assigned_to: 'Charlie Davis',
-      assigned_to_id: 5,
-      status: 'in_progress',
-      priority: 'high',
-      location: 'Restaurant',
-      due_date: todayDate,
-      department: 'Kitchen',
-      guest_id: 'G002'
-    },
-    {
-      id: 13,
-      title: 'Photography Session: Rodriguez',
-      description: 'Arrange for photographer to capture anniversary moments during dinner. 7-8pm.',
-      assigned_to: 'Hannah Lopez',
-      assigned_to_id: 10,
-      status: 'pending',
-      priority: 'medium',
-      location: 'Ocean Terrace',
-      due_date: todayDate,
-      department: 'Events',
-      guest_id: 'G002'
-    },
-    {
-      id: 14,
-      title: 'Romantic Turndown: Rodriguez',
-      description: 'Special turndown service with chocolate truffles, mood lighting, and soft music setup.',
-      assigned_to: 'Alice Johnson',
-      assigned_to_id: 3,
-      status: 'pending',
-      priority: 'medium',
-      location: 'Room 302',
-      due_date: todayDate,
-      department: 'Housekeeping',
-      guest_id: 'G002'
-    },
-    {
-      id: 15,
-      title: 'Yacht Excursion: Rodriguez',
-      description: 'Confirm private sunset yacht booking. Champagne and canapés to be prepared.',
-      assigned_to: 'Hannah Lopez',
-      assigned_to_id: 10,
-      status: 'pending',
-      priority: 'high',
-      location: 'Marina',
-      due_date: tomorrow,
-      department: 'Events',
-      guest_id: 'G002'
-    },
-    {
-      id: 16,
-      title: 'Late Checkout: Rodriguez',
-      description: 'Arrange late checkout (2pm) for Rodriguez couple as part of anniversary package.',
-      assigned_to: 'Jane Smith',
-      assigned_to_id: 2,
-      status: 'pending',
-      priority: 'low',
-      location: 'Front Desk',
-      due_date: threeDaysFromNow,
-      department: 'Front Desk',
-      guest_id: 'G002'
-    },
+    // {
+    //   id: 9,
+    //   title: 'Anniversary Package: Rodriguez',
+    //   description: 'Set up anniversary package for Rodriguez couple: champagne, roses, and personalized welcome card.',
+    //   assigned_to: 'Jane Smith',
+    //   assigned_to_id: 2,
+    //   status: 'completed',
+    //   priority: 'high',
+    //   location: 'Front Desk',
+    //   due_date: threeDaysAgo,
+    //   department: 'Front Desk',
+    //   guest_id: 'G002'
+    // },
+    // {
+    //   id: 10,
+    //   title: 'Room Decoration: Rodriguez',
+    //   description: 'Decorate Room 302 with rose petals, set up anniversary banner and decorative lighting.',
+    //   assigned_to: 'Alice Johnson',
+    //   assigned_to_id: 3,
+    //   status: 'completed',
+    //   priority: 'medium',
+    //   location: 'Room 302',
+    //   due_date: threeDaysAgo,
+    //   department: 'Housekeeping',
+    //   guest_id: 'G002'
+    // },
+    // {
+    //   id: 11,
+    //   title: 'Couples Spa Appointment: Rodriguez',
+    //   description: 'Confirm couples massage for Rodriguez anniversary package at 3pm in the spa.',
+    //   assigned_to: 'Fiona Wilson',
+    //   assigned_to_id: 8,
+    //   status: 'completed',
+    //   priority: 'medium',
+    //   location: 'Spa',
+    //   due_date: twoDaysAgo,
+    //   department: 'Spa',
+    //   guest_id: 'G002'
+    // },
+    // {
+    //   id: 12,
+    //   title: 'Special Dinner: Rodriguez',
+    //   description: 'Set up private candlelight dinner on ocean terrace. Anniversary menu with wine pairing.',
+    //   assigned_to: 'Charlie Davis',
+    //   assigned_to_id: 5,
+    //   status: 'in_progress',
+    //   priority: 'high',
+    //   location: 'Restaurant',
+    //   due_date: todayDate,
+    //   department: 'Kitchen',
+    //   guest_id: 'G002'
+    // },
+    // {
+    //   id: 13,
+    //   title: 'Photography Session: Rodriguez',
+    //   description: 'Arrange for photographer to capture anniversary moments during dinner. 7-8pm.',
+    //   assigned_to: 'Hannah Lopez',
+    //   assigned_to_id: 10,
+    //   status: 'pending',
+    //   priority: 'medium',
+    //   location: 'Ocean Terrace',
+    //   due_date: todayDate,
+    //   department: 'Events',
+    //   guest_id: 'G002'
+    // },
+    // {
+    //   id: 14,
+    //   title: 'Romantic Turndown: Rodriguez',
+    //   description: 'Special turndown service with chocolate truffles, mood lighting, and soft music setup.',
+    //   assigned_to: 'Alice Johnson',
+    //   assigned_to_id: 3,
+    //   status: 'pending',
+    //   priority: 'medium',
+    //   location: 'Room 302',
+    //   due_date: todayDate,
+    //   department: 'Housekeeping',
+    //   guest_id: 'G002'
+    // },
+    // {
+    //   id: 15,
+    //   title: 'Yacht Excursion: Rodriguez',
+    //   description: 'Confirm private sunset yacht booking. Champagne and canapés to be prepared.',
+    //   assigned_to: 'Hannah Lopez',
+    //   assigned_to_id: 10,
+    //   status: 'in_progress',
+    //   priority: 'high',
+    //   location: 'Marina',
+    //   due_date: tomorrow,
+    //   department: 'Events',
+    //   guest_id: 'G002'
+    // },
+    // {
+    //   id: 16,
+    //   title: 'Late Checkout: Rodriguez',
+    //   description: 'Arrange late checkout (2pm) for Rodriguez couple as part of anniversary package.',
+    //   assigned_to: 'Jane Smith',
+    //   assigned_to_id: 2,
+    //   status: 'pending',
+    //   priority: 'low',
+    //   location: 'Front Desk',
+    //   due_date: threeDaysFromNow,
+    //   department: 'Front Desk',
+    //   guest_id: 'G002'
+    // },
 
     // GUEST JOURNEY 3: Johnson Family with Children
     {
@@ -396,8 +396,8 @@ function getMockTasks() {
     },
     {
       id: 20,
-      title: 'Pool Safety Briefing: Johnson Family',
-      description: 'Conduct family pool safety orientation. Provide kids with appropriate flotation devices.',
+      title: 'Pool Safety Briefing: Chris Andrews',
+      description: 'Conduct pool safety orientation.',
       assigned_to: 'George Hernandez',
       assigned_to_id: 9,
       status: 'in_progress',
@@ -405,7 +405,7 @@ function getMockTasks() {
       location: 'Pool Deck',
       due_date: todayDate,
       department: 'Security',
-      guest_id: 'G003'
+      guest_id: 'G005'
     },
     {
       id: 21,
@@ -433,19 +433,19 @@ function getMockTasks() {
       department: 'Events',
       guest_id: 'G003'
     },
-    {
-      id: 23,
-      title: 'Family Excursion: Johnson Family',
-      description: 'Book family dolphin watching tour. Prepare packed lunch for 4 people. Pickup at 9am.',
-      assigned_to: 'Diane Miller',
-      assigned_to_id: 6,
-      status: 'pending',
-      priority: 'medium',
-      location: 'Tour Desk',
-      due_date: threeDaysFromNow,
-      department: 'Recreation',
-      guest_id: 'G003'
-    },
+    // {
+    //   id: 23,
+    //   title: 'Family Excursion: Johnson Family',
+    //   description: 'Book family dolphin watching tour. Prepare packed lunch for 4 people. Pickup at 9am.',
+    //   assigned_to: 'Diane Miller',
+    //   assigned_to_id: 6,
+    //   status: 'pending',
+    //   priority: 'medium',
+    //   location: 'Tour Desk',
+    //   due_date: threeDaysFromNow,
+    //   department: 'Recreation',
+    //   guest_id: 'G003'
+    // },
     {
       id: 24,
       title: 'Babysitting Service: Johnson Family',
@@ -463,7 +463,7 @@ function getMockTasks() {
     // STANDARD OPERATIONAL TASKS
     {
       id: 25,
-      title: 'Clean Room 101',
+      title: 'Clean Room 101: Chris Andrews',
       description: 'Deep clean the room and change linens',
       assigned_to: 'Alice Johnson',
       assigned_to_id: 3,
@@ -515,7 +515,7 @@ function getMockTasks() {
       description: 'Monthly inventory audit of kitchen supplies and equipment',
       assigned_to: 'Charlie Davis',
       assigned_to_id: 5,
-      status: 'pending',
+      status: 'in_progress',
       priority: 'medium',
       location: 'Storage Room',
       due_date: fiveDaysFromNow,
@@ -527,26 +527,26 @@ function getMockTasks() {
       description: 'Ensure all guest information is current in the system',
       assigned_to: 'Jane Smith',
       assigned_to_id: 2,
-      status: 'pending',
+      status: 'in_progress',
       priority: 'medium',
       location: 'Front Desk',
       due_date: fourDaysFromNow,
       department: 'Front Desk'
     },
     // Add this to the tasks array in getMockTasks function
-    {
-      id: 31,
-      title: 'Birthday Cake Delivery',
-      description: 'Deliver birthday cake to Room 303 at 9 PM for guest Sarah Williams.',
-      assigned_to: 'Charlie Davis',
-      assigned_to_id: 5,
-      status: 'pending',
-      priority: 'medium',
-      location: 'Room 303',
-      due_date: getTimeForToday(21, 0), // 9:00 PM Today
-      department: 'Kitchen',
-      guest_id: 'G004'
-    }
+    // {
+    //   id: 31,
+    //   title: 'Birthday Cake Delivery',
+    //   description: 'Deliver birthday cake to Room 303 at 9 PM for guest Sarah Williams.',
+    //   assigned_to: 'Charlie Davis',
+    //   assigned_to_id: 5,
+    //   status: 'pending',
+    //   priority: 'medium',
+    //   location: 'Room 303',
+    //   due_date: getTimeForToday(21, 0), // 9:00 PM Today
+    //   department: 'Kitchen',
+    //   guest_id: 'G004'
+    // }
   ];
 
   return tasks;

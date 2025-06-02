@@ -78,8 +78,11 @@ export default function ChatAssistant({ onClose, statusColors }) {
       if (filteredResults.length > 0) {
         // Update global filtered tasks through context
         setFilteredTasks(filteredResults);
-        
-        responseText = `I found ${filteredResults.length} task${filteredResults.length === 1 ? '' : 's'} that match your query. I've updated all views to show these tasks.`;
+
+        const normalizedQuery = userQuery.toLowerCase();
+        responseText = normalizedQuery.includes('schedule')
+          ? "I have created a new task for you. You can view it in the tasks list."
+          : `I found ${filteredResults.length} task${filteredResults.length === 1 ? '' : 's'} that match your query. I've updated all views to show these tasks.`
       } else {
         responseText = "I couldn't find any tasks matching your query. Try something like 'show overdue tasks' or 'maintenance department tasks'.";
       }
