@@ -396,8 +396,8 @@ function getMockTasks() {
     },
     {
       id: 20,
-      title: 'Pool Safety Briefing: Chris Andrews',
-      description: 'Conduct pool safety orientation.',
+      title: 'Pool Safety Briefing: Johnson Family',
+      description: 'Conduct family pool safety orientation. Provide kids with appropriate flotation devices.',
       assigned_to: 'George Hernandez',
       assigned_to_id: 9,
       status: 'in_progress',
@@ -405,7 +405,7 @@ function getMockTasks() {
       location: 'Pool Deck',
       due_date: todayDate,
       department: 'Security',
-      guest_id: 'G005'
+      guest_id: 'G003'
     },
     {
       id: 21,
